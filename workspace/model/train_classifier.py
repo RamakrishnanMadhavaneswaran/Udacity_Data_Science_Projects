@@ -1,21 +1,16 @@
 import sys
-
 import pandas as pd
-
 import numpy as np
 
 from sqlalchemy import create_engine
 
-#For using tokenizer = tokenize in Count Vectorizer
 import nltk
 nltk.download('punkt')
 nltk.download('wordnet')
 
-#NLTK libraries
 from nltk import word_tokenize
 from nltk.stem import WordNetLemmatizer
 
-#Machine Learning libraries
 from sklearn.pipeline import Pipeline, FeatureUnion
 from sklearn.model_selection import train_test_split
 from sklearn.multioutput import MultiOutputClassifier
@@ -25,11 +20,8 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import classification_report, confusion_matrix
 
-# Use the below algorithm for improving the model
-from sklearn.neighbors import KNeighborsClassifier
-
-# pickle library to save machine learning model
 import pickle
+
 
 def load_data(database_filepath):
     '''
@@ -83,7 +75,7 @@ def build_model():
     No Arguments
     
     OUTPUT:
-    pipeline: output model
+    cv: output model
     
     '''
     pipeline = Pipeline([
@@ -91,7 +83,16 @@ def build_model():
         ('tfidf',TfidfTransformer()),
         ('multi',MultiOutputClassifier(RandomForestClassifier()))
     ])
-    return pipeline
+
+    parameters = {
+        'multi__estimator__criterion': ['gini'],
+        'multi__estimator__max_depth': [None],
+        'multi__estimator__n_estimators': [1]
+    }
+
+    cv = GridSearchCV(pipeline, param_grid=parameters, n_jobs=4, verbose=3)
+    
+    return cv
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
