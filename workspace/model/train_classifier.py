@@ -68,7 +68,7 @@ def tokenize(text):
 
 
 def build_model():
-        '''
+    '''
     Function to build the model (pipeline with estimator).
     
     ARGS:
@@ -96,7 +96,7 @@ def build_model():
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
-        '''
+    '''
     Function to print the evaluated results of the trained model on test data
     
     ARGS:
