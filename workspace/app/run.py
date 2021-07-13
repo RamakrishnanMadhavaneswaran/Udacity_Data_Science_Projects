@@ -26,11 +26,8 @@ def tokenize(text):
     return clean_tokens
 
 # load data
-#engine = create_engine('sqlite:///../data/YourDatabaseName.db')
 engine = create_engine('sqlite:///../data/DisasterResponse.db')
 
-
-#Modified the database name in the below line (from YourTableName)
 df = pd.read_sql_table('disaster_response_data', engine)
 
 # load model
@@ -46,6 +43,13 @@ def index():
     # TODO: Below is an example - modify to extract data for your own visuals
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
+    
+    #Visualization related to category counts
+    categories_data_frame = df.iloc[:,4:]
+    categories_count_details = categories_data_frame.sum()
+    category_names = categories_count_details.index.tolist()
+    category_counts = categories_count_details.tolist()
+    category_percentage = categories_count_details/categories_data_frame.shape[0]
     
     # create visuals
     # TODO: Below is an example - modify to create your own visuals
@@ -65,6 +69,42 @@ def index():
                 },
                 'xaxis': {
                     'title': "Genre"
+                }
+            }
+        },
+        {
+            'data': [
+                Bar(
+                    x=category_names,
+                    y=category_percentage
+                )
+            ],
+
+            'layout': {
+                'title': 'Percentage of Message Categories',
+                'yaxis': {
+                    'title': "Percentage"
+                },
+                'xaxis': {
+                    'title': "Message Categories"
+                }
+            }
+        },
+        {
+            'data': [
+                Bar(
+                    x=category_names,
+                    y=category_counts
+                )
+            ],
+
+            'layout': {
+                'title': 'Count of Message Categories',
+                'yaxis': {
+                    'title': "Count"
+                },
+                'xaxis': {
+                    'title': "Message Categories"
                 }
             }
         }
