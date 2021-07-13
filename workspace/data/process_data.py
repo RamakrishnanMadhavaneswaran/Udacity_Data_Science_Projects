@@ -3,7 +3,8 @@ import pandas as pd
 from sqlalchemy import create_engine
 
 def load_data(messages_filepath, categories_filepath):
-        '''
+    
+    '''
     Function to load data from the csv files.
     
     ARGS:
@@ -15,6 +16,7 @@ def load_data(messages_filepath, categories_filepath):
     categories: categories dataframe
     
     '''
+   
     
     # load messages dataset
     messages = pd.read_csv(messages_filepath)
@@ -27,7 +29,7 @@ def load_data(messages_filepath, categories_filepath):
 
 
 def clean_data(df,categories):
-        '''
+    '''
     Function to clean the data
     
     ARGS:
@@ -73,7 +75,7 @@ def clean_data(df,categories):
 
 
 def save_data(df, database_filename):
-        '''
+    '''
     Function to save the cleaned dataframe to sql lite db.
     
     ARGS:
