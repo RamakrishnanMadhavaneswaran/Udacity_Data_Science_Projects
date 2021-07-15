@@ -57,23 +57,23 @@ from flask import render_template, request, jsonify
 
 There are five directories inside the workspace directory:
 
-###1. data
+	1. data
 		DisasterResponse.db: SQLite database containing the output of the ETL pipeline
 		disaster_categories.csv: categories dataset is available in this file
 		disaster_messages.csv: messages dataset is available in this file
 		process_data.py: ETL python script that takes the file paths of the two datasets and database, cleans the datasets, and stores the clean data into a SQLite database
 
-###2. models
+	2. models
 		train_classifier.py: machine learning pipeline script that takes the database file path and model file path, creates and trains a classifier, and stores the classifier into a pickle file
 
-###3. app
+	3. app
 		run.py: python script that runs the web application
 		templates directory: contains html files related to the landing page and, to display the classification results of the model
 		
-###4. project_snapshots/snapshot_1
+	4. project_snapshots/snapshot_1
 		this directory contains the snapshots of the web application
 		
-###5. Notebooks Used for this project
+	5. Notebooks Used for this project
 		ETL Pipeline Preparation.ipynb: Jupyter notebook that takes the file paths of the two datasets and database, cleans the datasets, and stores the clean data into a SQLite database
 		ML Pipeline Preparation.ipynb: Jupyter notebook that takes the database file path and model file path, creates and trains a classifier, and stores the classifier into a pickle file
 
